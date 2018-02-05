@@ -1,0 +1,11 @@
+import CreateZone from './CreateZone';
+import CreateComment from './CreateComment';
+import Zone from './Zone';
+import Comment from './Comment';
+
+export {
+	CreateComment,
+	CreateZone,
+	Zone,
+	Comment
+}
