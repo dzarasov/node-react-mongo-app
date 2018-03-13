@@ -3,7 +3,7 @@ import { Profile } from '../containers';
 
 class ProfileInfo extends Component {
 	componentDidMount() {
-		console.log('did mount: ' + JSON.stringify(this.props));
+		console.log('did mount here: ' + JSON.stringify(this.props));
 	}
 
 	render() {

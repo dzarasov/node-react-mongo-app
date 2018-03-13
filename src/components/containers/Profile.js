@@ -13,28 +13,43 @@ class Profile extends Component {
 	}
 
 	componentDidMount() {
-		APIManager.get('/api/profile', {username: this.props.username}, (err, response) => {
-			if(err) {
-				console.log('err: ' + err);
-				return;
-			}
+		console.log('Profile Component Did Mount');
+		let profile = this.props.profiles[this.props.username];
 
-			if(response.results.length == 0) {
-				console.log('no data in array');
-				return;
-			}
+		if(profile == null) {
+			APIManager.get('/api/profile', {username: this.props.username}, (err, response) => {
+				if(err) {
+					console.log('err: ' + err);
+					return;
+				}
 
-			console.log('response: ' + JSON.stringify(response));
-			const profile = response.results[0];
-			this.props.profileReceived(profile);
-		})
+				if(response.results.length == 0) {
+					console.log('no data in array');
+					return;
+				}
+
+				console.log('response: ' + JSON.stringify(response));
+				const profile = response.results[0];
+				this.props.profileReceived(profile);
+			})
+		}
+
+	}
+
+	componentDidUpdate() {
+		console.log('Profile Component Did Update');
 	}
 
 	render() {
-		const profile = this.props.profiles[0];
-		for(var i = 0; i<this.props.profiles.length; i++) {
-			console.log('prfile: ' + JSON.stringify(this.props.profiles[i]));
-		}
+		console.log('Profile Component Did Render');
+		let profile = this.props.profiles[this.props.username];
+
+		// for(let i = 0; i<this.props.profiles.length; i++) {
+		// 	if(this.props.profiles[i].username == this.props.username){
+		// 		profile = this.props.profiles[i];
+		// 		break;
+		// 	}
+		// }
 
 		let header = null;
 		if(profile != null) {
@@ -57,7 +72,7 @@ class Profile extends Component {
 
 const stateToProps = (state) => {
 	return {
-		profiles: state.profileStore.list
+		profiles: state.profileStore.map
 	}
 }
 
